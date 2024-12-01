@@ -191,7 +191,7 @@ describe("E2E tests", function () {
 
       expect(await l1TokenBridge.nativeToBridgedToken(chainIds[0], L1DAI.address)).to.be.equal(NATIVE_STATUS);
 
-      // We check that the brigedToken have not been created yet
+      // We check that the bridgedToken have not been created yet
       expect(await l2TokenBridge.nativeToBridgedToken(chainIds[0], L1DAI.address)).to.be.equal(
         ethers.constants.AddressZero,
       );
@@ -362,12 +362,12 @@ describe("E2E tests", function () {
 
       await l1TokenBridge.connect(user).bridgeToken(L1USDT.address, amountBridged, user.address);
 
-      const brigedToNativeContract = await l2TokenBridge.nativeToBridgedToken(chainIds[0], L1USDT.address);
+      const bridgedToNativeContract = await l2TokenBridge.nativeToBridgedToken(chainIds[0], L1USDT.address);
 
       // Try to set custom contract with a bridgedTokenContract, should revert
       await expect(
-        l2TokenBridge.setCustomContract(L2UNI.address, brigedToNativeContract),
-      ).to.be.revertedWithCustomError(l2TokenBridge, "AlreadyBrigedToNativeTokenSet");
+        l2TokenBridge.setCustomContract(L2UNI.address, bridgedToNativeContract),
+      ).to.be.revertedWithCustomError(l2TokenBridge, "AlreadyBridgedToNativeTokenSet");
 
       await expect(l2TokenBridge.setCustomContract(L2UNI.address, RESERVED_STATUS)).to.be.revertedWithCustomError(
         l2TokenBridge,
