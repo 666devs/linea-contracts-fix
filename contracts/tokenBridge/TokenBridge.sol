@@ -40,9 +40,9 @@ contract TokenBridge is
   bytes private constant METADATA_DECIMALS = abi.encodeCall(IERC20MetadataUpgradeable.decimals, ());
 
   address public tokenBeacon;
-  /// @notice mapping (chainId => nativeTokenAddress => brigedTokenAddress)
+  /// @notice mapping (chainId => nativeTokenAddress => bridgedTokenAddress)
   mapping(uint256 => mapping(address => address)) public nativeToBridgedToken;
-  /// @notice mapping (brigedTokenAddress => nativeTokenAddress)
+  /// @notice mapping (bridgedTokenAddress => nativeTokenAddress)
   mapping(address => address) public bridgedToNativeToken;
 
   /// @notice The current layer chainId from where the bridging is triggered
@@ -380,7 +380,7 @@ contract TokenBridge is
     address _targetContract
   ) external nonZeroAddress(_nativeToken) nonZeroAddress(_targetContract) onlyOwner isNewToken(_nativeToken) {
     if (bridgedToNativeToken[_targetContract] != EMPTY) {
-      revert AlreadyBrigedToNativeTokenSet(_targetContract);
+      revert AlreadyBridgedToNativeTokenSet(_targetContract);
     }
     if (_targetContract == NATIVE_STATUS || _targetContract == DEPLOYED_STATUS || _targetContract == RESERVED_STATUS) {
       revert StatusAddressNotAllowed(_targetContract);
